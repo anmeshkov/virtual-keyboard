@@ -1,0 +1,79 @@
+body {
+  font-family: 'Chivo Mono', monospace;
+  font-size: 1px;
+  color: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.input-textarea {
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-family: 'Chivo Mono', monospace;
+  line-height: 1.5;
+  font-weight: 100;
+  outline: none;
+}
+
+.input-textarea:focus {
+  border: 1px solid #d1d6d8;
+
+  color: #000000;
+  box-shadow: inset 0px 0px 6px -3px rgba(185, 189, 193, 0.6);
+}
+
+.keyboard__wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  padding: 14px;
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  background-color: #fafafa;
+  box-shadow: 0px 5px 5px -5px rgba(185, 189, 193, 0.6);
+}
+
+.keyboard-row {
+  display: flex;
+  column-gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.keyboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c2c2c2;
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 8px;
+  min-width: 60px;
+  height: 60px;
+  font-size: 1.2rem;
+  font-weight: 200;
+  cursor: pointer;
+  transition: background-color .2s, box-shadow .2s;
+  box-shadow: 0px 5px 5px -5px rgba(185, 189, 193, 0.6);
+}
+
+.keyboard-button:hover {
+  background-color: #d1d6d8c0;
+  border: 1px solid #D1D6D8;
+  /* color: #ffffff; */
+}
+
+.active, 
+.keyboard-button:active {
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+}
+
+.keyboard-button[key-code="Backspace"] {
+  min-width: 150px;
+}
