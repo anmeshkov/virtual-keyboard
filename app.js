@@ -38,9 +38,9 @@ const keyboardLayout =
   KeyJ: 'j',
   KeyK: 'k',
   KeyL: 'l',
-  Semicolon: ';',
-  // Quote: '\'',
-  Backslash: '\\',
+  Semicolon: [';', ':'],
+  Quote: ['\'', '"'],
+  // Backslash: ['\\', '|'],
   Enter: 'Enter',
   ShiftLeft: 'Shift',
   IntlBackslash: '\\',
@@ -51,9 +51,9 @@ const keyboardLayout =
   KeyB: 'b',
   KeyN: 'n',
   KeyM: 'm',
-  Comma: ',',
-  Period: '.',
-  Slash: '/',
+  Comma: [',', '<'],
+  Period: ['.', '>'],
+  Slash: ['/', '?'],
   ArrowUp: '▲',
   ShiftRight: 'Shift',
   ControlLeft: 'Ctrl',
@@ -113,7 +113,7 @@ function createKeyboard() {
     //   : `<span>${keyboardLayout[key]}</span>`;
 
     if (Array.isArray(keyboardLayout[key])) {
-      keyboardButton.innerHTML = `<span>${keyboardLayout[key][0]}</span><span class="before">${keyboardLayout[key][1]}</span>`;
+      keyboardButton.innerHTML = `<span>${keyboardLayout[key][0]}</span><span class="alt-key">${keyboardLayout[key][1]}</span>`;
     } else {
       keyboardButton.innerHTML = `<span>${keyboardLayout[key]}</span>`;
     }
@@ -124,7 +124,7 @@ function createKeyboard() {
   document.body.appendChild(keyboardWrapper);
 }
 
-// createTextarea();
+createTextarea();
 createKeyboard();
 
 document.addEventListener('keydown', (event) => {
