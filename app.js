@@ -1,18 +1,18 @@
 const keyboardLayout =
 {
-  Backquote: '`',
-  Digit1: '1',
-  Digit2: '2',
-  Digit3: '3',
-  Digit4: '4',
-  Digit5: '5',
-  Digit6: '6',
-  Digit7: '7',
-  Digit8: '8',
-  Digit9: '9',
-  Digit0: '0',
-  Minus: '-',
-  Equal: '+',
+  Backquote: ['`', '~'],
+  Digit1: ['1', '!'],
+  Digit2: ['2', '@'],
+  Digit3: ['3', '#'],
+  Digit4: ['4', '$'],
+  Digit5: ['5', '%'],
+  Digit6: ['6', '^'],
+  Digit7: ['7', '&'],
+  Digit8: ['8', '*'],
+  Digit9: ['9', '('],
+  Digit0: ['0', ')'],
+  Minus: ['-', '_'],
+  Equal: ['=', '+'],
   Backspace: 'Backspace',
   Tab: 'Tab',
   KeyQ: 'q',
@@ -108,7 +108,15 @@ function createKeyboard() {
 
     keyboardButton.setAttribute('key-code', key);
 
-    keyboardButton.innerHTML = `<span>${keyboardLayout[key]}</span>`;
+    // keyboardButton.innerHTML = `<span>${keyboardLayout[key]}</span>`;
+    // keyboardButton.innerHTML = Array.isArray(keyboardLayout[key]) ? `<span>${keyboardLayout[key][1]}</span>`
+    //   : `<span>${keyboardLayout[key]}</span>`;
+
+    if (Array.isArray(keyboardLayout[key])) {
+      keyboardButton.innerHTML = `<span>${keyboardLayout[key][0]}</span><span class="before">${keyboardLayout[key][1]}</span>`;
+    } else {
+      keyboardButton.innerHTML = `<span>${keyboardLayout[key]}</span>`;
+    }
 
     keyboardWrapper.append(keyboardButton);
   }
