@@ -119,4 +119,9 @@ body {
 
 .keyboard-button[key-code="Space"] {
   grid-column: span 14;
+  grid-column: span 12;
+}
+
+.hidden {
+  display: none;
 }

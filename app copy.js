@@ -196,50 +196,27 @@ function createKeyboard(keyboardLayout) {
 createTextarea();
 
 function renderKeyboard(lang) {
-
-  // if (document.querySelector('.keyboard__wrapper')) {
-  //   document.querySelector('.keyboard__wrapper').remove()
-  // };
-
   if (lang.toUpperCase() === 'EN') {
     createKeyboard(keyboardLayoutEN);
-  } else if (lang.toUpperCase() === 'RU') {
+  } else if (lang.toUpperCase() === 'RU'){
     createKeyboard(keyboardLayoutRU);
   } else {
     console.error('Unsupported language');
   }
-
-  const switchLangKey = document.querySelector('.keyboard-button[key-code="Lang"]');
-  switchLangKey.addEventListener('click', (event) => {
-    document.querySelector('.keyboard__wrapper').remove();
-
-    if (event.target.innerText.toUpperCase() === 'EN') {
-      renderKeyboard('RU');
-    } else if (event.target.innerText.toUpperCase() === 'RU') {
-      renderKeyboard('EN');
-    } else {
-      console.error('Unsupported language');
-    }
-  })
-
-  const keys = document.querySelectorAll('.keyboard-button');
-  for (const key of keys) {
-    key.addEventListener('click', (event) => {
-      // const keyCode = key.getAttribute('key-code');
-      // console.log(keyCode);
-      console.log(
-        key.children[0].textContent
-      );
-
-      const inputTextarea = document.querySelector('.input-textarea');
-      inputTextarea.value += key.children[0].textContent;
-    })
-  }
 }
 
-renderKeyboard('EN');
+renderKeyboard('RU');
 
-
+const switchLangKey = document.querySelector('.keyboard-button[key-code="Lang"]');
+switchLangKey.addEventListener('click', (event) => {
+  if (event.target.innerText.toUpperCase() === 'EN') {
+    renderKeyboard('RU');
+  } else if (event.target.innerText.toUpperCase() === 'RU') {
+    renderKeyboard('EN');
+  } else {
+    console.error('Unsupported language');
+  }
+})
 
 document.addEventListener('keydown', (event) => {
   console.log(event.code);
@@ -256,3 +233,16 @@ document.addEventListener('keyup', (event) => {
 })
 
 
+const keys = document.querySelectorAll('.keyboard-button');
+for (const key of keys) {
+  key.addEventListener('click', (event) => {
+    // const keyCode = key.getAttribute('key-code');
+    // console.log(keyCode);
+    console.log(
+      key.children[0].textContent
+    );
+
+    const inputTextarea = document.querySelector('.input-textarea');
+    inputTextarea.value += key.children[0].textContent;
+  })
+}
