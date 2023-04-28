@@ -2,10 +2,11 @@
   --key-width: 60px;
   --key-height: 60px;
   --max-width: 1200px;
+  --body-font-family: 'Roboto Mono', monospace;;
 }
 
 body {
-  font-family: 'Chivo Mono', monospace;
+  font-family: var(--body-font-family);
   font-size: 1px;
   color: #000000;
 
@@ -28,15 +29,15 @@ body {
   padding: 14px;
   margin-bottom: 20px;
   font-size: 1.1rem;
-  font-family: 'Chivo Mono', monospace;
+  font-family: var(--body-font-family);
   line-height: 1.5;
-  font-weight: 100;
+  font-weight: 300;
   outline: none;
   box-shadow: inset 0px 0px 6px -3px rgba(185, 189, 193, 0.6);
 }
 
 .input-textarea:focus {
-  border: 1px solid #506294;
+  border: 1px solid #2a43b4;
   color: #000000;
 }
 
@@ -70,7 +71,7 @@ body {
   height: var(--key-height);
 
   font-size: 1.2rem;
-  font-weight: 200;
+  font-weight: 300;
   cursor: pointer;
   transition: background-color .2s, box-shadow .2s;
   box-shadow: 0px 5px 5px -5px rgba(185, 189, 193, 0.6);
@@ -94,8 +95,8 @@ body {
 
 .keyboard-button .alt-key {
   font-size: 0.8rem;
-  color: #adadad;
-  font-weight: 100;
+  color: #949494;
+  font-weight: 400;
   position: absolute;
   top: 5px;
   left: 8px;
@@ -118,7 +119,6 @@ body {
 }
 
 .keyboard-button[key-code="Space"] {
-  grid-column: span 14;
   grid-column: span 12;
 }
 
