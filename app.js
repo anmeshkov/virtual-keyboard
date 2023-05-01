@@ -1,3 +1,4 @@
+/* английская раскладка */
 const keyboardLayoutEN = {
   Backquote: ['`', '~'],
   Digit1: ['1', '!'],
@@ -67,6 +68,7 @@ const keyboardLayoutEN = {
   ArrowRight: '▶',
 };
 
+/* русская раскладка */
 const keyboardLayoutRU = {
   Backquote: ['`', '~'],
   Digit1: ['1', '!'],
@@ -139,7 +141,7 @@ const keyboardLayoutRU = {
 function createTextarea() {
   const textarea = document.createElement('textarea');
   textarea.className = 'input-textarea';
-  textarea.placeholder = 'To switch to a different keyboard layout, press ALT+SHIFT'
+  textarea.placeholder = 'To switch to a different keyboard layout, press left CTRL+ALT \nThe keyboard was created in the Windows operating system'
   document.body.appendChild(textarea);
 }
 
@@ -177,10 +179,6 @@ function createKeyboard(keyboardLayout) {
 
     keyboardButton.setAttribute('key-code', key);
 
-    // keyboardButton.innerHTML = `<span>${keyboardLayout[key]}</span>`;
-    // keyboardButton.innerHTML = Array.isArray(keyboardLayout[key]) ? `<span>${keyboardLayout[key][1]}</span>`
-    //   : `<span>${keyboardLayout[key]}</span>`;
-
     if (Array.isArray(keyboardLayout[key])) {
       keyboardButton.innerHTML = `<span>${keyboardLayout[key][0]}</span><span class="alt-key">${keyboardLayout[key][1]}</span>`;
     } else {
@@ -196,22 +194,25 @@ function createKeyboard(keyboardLayout) {
 createTextarea();
 
 function renderKeyboard(lang) {
-
-  // if (document.querySelector('.keyboard__wrapper')) {
-  //   document.querySelector('.keyboard__wrapper').remove()
-  // };
+  if (document.querySelector('.keyboard__wrapper')) {
+    document.querySelector('.keyboard__wrapper').remove()
+  };
 
   if (lang.toUpperCase() === 'EN') {
+    currentKeyboardLang = 'EN';
     createKeyboard(keyboardLayoutEN);
   } else if (lang.toUpperCase() === 'RU') {
+    currentKeyboardLang = 'RU';
     createKeyboard(keyboardLayoutRU);
   } else {
     console.error('Unsupported language');
   }
 
+  localStorage.setItem('keboardLanguage', currentKeyboardLang);
+
   const switchLangKey = document.querySelector('.keyboard-button[key-code="Lang"]');
   switchLangKey.addEventListener('click', (event) => {
-    document.querySelector('.keyboard__wrapper').remove();
+    // document.querySelector('.keyboard__wrapper').remove();
 
     if (event.target.innerText.toUpperCase() === 'EN') {
       renderKeyboard('RU');
@@ -225,29 +226,71 @@ function renderKeyboard(lang) {
   const keys = document.querySelectorAll('.keyboard-button');
   for (const key of keys) {
     key.addEventListener('click', (event) => {
-      // const keyCode = key.getAttribute('key-code');
-      // console.log(keyCode);
-      console.log(
-        key.children[0].textContent
-      );
-
       const inputTextarea = document.querySelector('.input-textarea');
-      inputTextarea.value += key.children[0].textContent;
+      inputTextarea.value += returnCurrenChar(key.children[0].textContent);
     })
   }
 }
 
-renderKeyboard('EN');
+/* first render */
+let currentKeyboardLang = (localStorage.getItem('keboardLanguage') ? localStorage.getItem('keboardLanguage') : 'EN');
+renderKeyboard(currentKeyboardLang);
 
 
+function returnCurrenChar(char) {
+  let currentChar = '';
+  switch (char) {
+    case 'Enter':
+      currentChar = '\n'
+      break;
+    case 'Tab':
+      currentChar = '\t'
+      break;
+    case 'Backspace':
+    case 'Delete':
+    case 'DEL':
+    case 'CapsLock':
+    case 'Caps Lock':
+    case 'Shift':
+    case 'Cmd':
+    case 'Meta':
+    case 'Alt':
+    case 'Ctrl':
+    case 'Control':
+    case 'ShiftLeft':
+    case 'ControlLeft':
+    case 'AltLeft':
+    case 'MetaLeft':
+    case 'ShiftRight':
+    case 'MetaRight':
+    case 'EN':
+    case 'RU':
+      currentChar = '';
+      break;
+    default:
+      currentChar = char;
+      break;
+  }
+
+  return currentChar;
+}
 
 document.addEventListener('keydown', (event) => {
   console.log(event.code);
+
+  if (event.ctrlKey && event.altKey) {
+    renderKeyboard((
+      currentKeyboardLang === 'EN' ? 'RU' : 'EN'
+    ));
+  }
+
+
   const keyboarActiveButton = document.querySelector(`.keyboard-button[key-code="${event.code}"]`);
   keyboarActiveButton.classList.add('active');
 
   const inputTextarea = document.querySelector('.input-textarea');
-  inputTextarea.value += event.key;
+
+  inputTextarea.value += returnCurrenChar(event.key);
 });
 
 document.addEventListener('keyup', (event) => {
