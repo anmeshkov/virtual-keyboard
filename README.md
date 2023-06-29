@@ -34,4 +34,4 @@
   ## Стек
 - HTML
 - CSS
-- no JS
+- JS
